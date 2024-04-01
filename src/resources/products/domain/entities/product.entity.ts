@@ -10,7 +10,7 @@ export enum ProductType{
     MERCHANDISING= "Merchandising"
 }
 export type ProductPropierties = {
-    productID: string;
+    productID: number;
     productName: string;
     productDescription: string;
     price: number;
@@ -21,7 +21,7 @@ export type ProductPropierties = {
 
 export class Product{
     constructor(
-    public productID: string,
+    public productID: number,
     public productName: StringValueObject,
     public productDescription: StringValueObject,
     public price: NumberValueObject,
