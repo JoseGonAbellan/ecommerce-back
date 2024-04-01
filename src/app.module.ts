@@ -1,15 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductModule } from './resources/products/infrastructure/rest/product.module';
+import { UserModule } from './resources/users/infrastructure/rest/user.module';
 @Module({
-  imports: [ProductModule],
+  imports: [ProductModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-  constructor() {
-    console.log('AppModule constructor called');
-  }
-}
+export class AppModule {}
