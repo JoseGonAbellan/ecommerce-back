@@ -32,8 +32,6 @@ export class CreateOrderWorkflow{
         const productPrices: number[] = []
         for (const product of input.productsOrders) {
             const findProduct = await this.useCaseFindByIdProduct.execute(product.id);
-            console.log(findProduct);
-            console.log(order, "ASDASDASDASD")
             const productPrice = findProduct.price * product.quantity;
             productPrices.push(productPrice);
             const orderDetailEntity = OrderDetail.create({orderId: order.orderId, productId: product.id, quantity: product.quantity, price: productPrice});

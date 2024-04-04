@@ -11,7 +11,6 @@ export class SqlOrderDetailRepository implements OrderDetailRepository{
  constructor(private readonly databaseService: DatabaseService) {}   
 
  async create(orderDetail: OrderDetail): Promise<OrderDetail> {
-   console.log("prueba")
      try {
         const query = `
         INSERT INTO ${this.tableName} (orderID, productID, quantity, price)
