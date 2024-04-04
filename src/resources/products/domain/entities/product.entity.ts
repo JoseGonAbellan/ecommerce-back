@@ -24,7 +24,7 @@ export class Product{
     public productID: number,
     public productName: StringValueObject,
     public productDescription: StringValueObject,
-    public price: NumberValueObject,
+    public price: number,
     public stock: NumberValueObject,
     public productImageURL: UrlValueObject,
     public productType: EnumValueObject<ProductType>
@@ -34,7 +34,7 @@ export class Product{
             productID: this.productID,
             productName: this.productName.getValue(),
             productDescription: this.productDescription.getValue(),
-            price: this.price.getValue(),
+            price: this.price,
             stock: this.stock.getValue(),
             productImageURL: this.productImageURL.getValue(),
             productType: this.productType.getValue()
@@ -45,7 +45,7 @@ export class Product{
             props.productID,
             StringValueObject.create("Nombre del producto",props.productName),
             StringValueObject.create("Descripción", props.productDescription),
-            NumberValueObject.create("precio",props.price),
+            props.price,
             NumberValueObject.create("stock", props.stock),
             UrlValueObject.create(props.productImageURL),
             EnumValueObject.create("Tipo de producto", props.productType, ProductType)

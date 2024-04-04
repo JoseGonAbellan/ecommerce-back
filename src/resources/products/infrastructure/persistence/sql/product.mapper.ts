@@ -17,7 +17,7 @@ export class ProductMapper{
             productID: product.productID,
             productName: product.productName.getValue(),
             productDescription: product.productDescription.getValue(),
-            price: product.price.getValue(),
+            price: product.price,
             stock: product.stock.getValue(),
             productImageURL: product.productImageURL.getValue(),
             productType: product.productType.getValue()
