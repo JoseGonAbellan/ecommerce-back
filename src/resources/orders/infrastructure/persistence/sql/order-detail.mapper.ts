@@ -2,21 +2,22 @@ import { OrderDetail, OrderDetailsPropierties } from "../../../domain/entities/o
 
 export class OrderDetailMapper{
     static mapToDomain(row: any): OrderDetail{
-        return new OrderDetail(
-            row.OrderDetailId,
-            row.OrderId,
-            row.ProductId,
-            row.Quantity,
-            row.Price
-        )
+        const orderDetail = OrderDetail.create({
+            orderDetailId: row.OrderDetailID,
+            orderId: row.OrderID,
+            productId: row.ProductID,
+            quantity: row.Quantity,
+            price: parseInt(row.Price)
+        })
+        return orderDetail
     }
     static toEntity(orderDetail: OrderDetail): OrderDetailsPropierties{
         return { 
-            orderDetailId: orderDetail.orderDetailId,
-            orderId: orderDetail.orderId,
-            productId: orderDetail.productId,
-            quantity: orderDetail.quantity,
-            price: orderDetail.price
+            orderDetailId: orderDetail.orderDetailId?.getValue(),
+            orderId: orderDetail.orderId?.getValue(),
+            productId: orderDetail.productId.getValue(),
+            quantity: orderDetail.quantity.getValue(),
+            price: orderDetail.price.getValue()
         }
     }
 }

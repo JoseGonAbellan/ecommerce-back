@@ -1,10 +1,10 @@
-import { Order } from "../entities/order.entity";
+import { Order, OrderPropierties } from "../entities/order.entity";
 
 
 export interface OrderRepository{
-    create(order: Order) : Promise<Order>;
-    findById(id: number) : Promise<Order>;
-    updateOrder(id: number, product: Order) : Promise<Order>;
-    findAll(page: number, pageSize: number, userId: number, orderDate?: Date) : Promise<Order[]>;
+    create(order: Order) : Promise<OrderPropierties>;
+    findById(id: number) : Promise<OrderPropierties>;
+    updateOrder(id: number, product: Order) : Promise<OrderPropierties>;
+    findAll(page: number, pageSize: number, userId: number, orderDate?: Date) : Promise<OrderPropierties[]>;
 }
 export const OrderRepositoryToken = Symbol("OrderRepository");

@@ -13,6 +13,7 @@ import { ProductModule } from '../../../products/infrastructure/rest/product.mod
 import { CreateOrderController } from './controllers/create-order.controller';
 import { FindAllOrdersByUserController } from './controllers/find-all-orders-by-user.controller';
 import { FindAllOrdersUseCase } from '../../application/uses-cases/find-all-orders.use-case';
+import { UpdateOrderUseCase } from '../../application/uses-cases/update-order.use-case';
 
 @Module({
     imports:[DatabaseModule, ProductModule],
@@ -27,6 +28,7 @@ import { FindAllOrdersUseCase } from '../../application/uses-cases/find-all-orde
       OrderMapper,
       OrderDetailMapper,
       DatabaseModule,
+      UpdateOrderUseCase,
   ],
 })
 export class OrderModule {}

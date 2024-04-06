@@ -7,6 +7,7 @@ export class FindByIdProductUseCase{
     @Inject(ProductRepositoryToken)
     private readonly productRepository: ProductRepository){}
     async execute(id: number): Promise<Product>{
-        return await this.productRepository.findById(id);
+        const result = await this.productRepository.findById(id);
+        return result
     }
 }

@@ -1,6 +1,7 @@
 import { EnumValueObject } from "../../../../common/domain/value-objects/enum.value-object";
-import { NumberValueObject } from "../value-objects/number.value-object";
-import { StringValueObject } from "../value-objects/string.value-object";
+import { NumberValueObject } from "../../../../common/domain/value-objects/number.value-object";
+import { StringValueObject } from "../../../products/domain/value-objects/string.value-object";
+
 
 export enum RolEnum{
     USER= "User",

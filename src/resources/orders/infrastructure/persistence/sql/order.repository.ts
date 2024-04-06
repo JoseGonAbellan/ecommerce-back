@@ -1,8 +1,9 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { NumberValueObject } from "../../../../../common/domain/value-objects/number.value-object";
 import { DatabaseService } from "../../../../../common/infrastructure/persistance/sql/connector.database";
 import { OrderRepository } from "../../../domain/contracts/order.repository";
-import { OrderDetail } from "../../../domain/entities/order-detail.entity";
-import { Order } from "../../../domain/entities/order.entity";
+import { Order, OrderPropierties } from "../../../domain/entities/order.entity";
+import { OrderDetailMapper } from "./order-detail.mapper";
 import { OrderMapper } from "./order.mapper";
 
 @Injectable()
@@ -10,37 +11,39 @@ export class SqlOrderRepository implements OrderRepository{
   private readonly tableName = "orders";
 
  constructor(private readonly databaseService: DatabaseService) {}
-async create(order: Order): Promise<Order> {
+async create(order: Order): Promise<OrderPropierties> {
      try {
         const query = `
         INSERT INTO ${this.tableName} (userID, orderDate, totalAmount)
         VALUES (?, ?, ?)`;
         const entity = OrderMapper.toEntity(order);
        
-      await this.databaseService.query(query,[entity.userId, entity.orderDate, entity.totalAmount]);
-      const result = await this.databaseService.query("SELECT LAST_INSERT_ID() as orderId;");
-        const orderId = result[0][0];
-        order.orderId = orderId.orderId;
-        return order;
+        await this.databaseService.query(query,[entity.userId, entity.orderDate, entity.totalAmount]);
+        const result = await this.databaseService.query("SELECT LAST_INSERT_ID() as orderId;");
+        const orderId = result[0][0].orderId;
+        order.orderId = NumberValueObject.create("order id", orderId);
+        entity.orderId = order.orderId.getValue();
+        return entity
      }  catch (error) {
         console.error("Error al crear el pedido:", error);
         throw error;
      }   
     }   
 
-    async findById(id: number): Promise<Order> {
+    async findById(id: number): Promise<OrderPropierties> {
       try {
          const query= `SELECT * FROM ${this.tableName} WHERE orderID = ?`;
          const result = await this.databaseService.query(query, [id]) as any[][];
-         const order = OrderMapper.mapToDomain(result[0][0]);
-         return order;
+         const order = OrderMapper.mapToDomain(result[0][0])
+         const orderPrimitives = OrderMapper.toEntity(order);
+         return orderPrimitives;
       } catch (error) {
          console.error("Error al obtener el pedido:", error);
          throw new NotFoundException(`No se ha encontrado el pedido con la id ${id}`);
       }
     }
 
-    async updateOrder(id: number, order: Order): Promise<Order> {
+    async updateOrder(id: number, order: Order): Promise<OrderPropierties> {
       try {
          const query = `UPDATE ${this.tableName} 
                        SET userID = ?, 
@@ -54,14 +57,15 @@ async create(order: Order): Promise<Order> {
             entity.totalAmount,
             id
         ]);
-        return order;
+        const orderPrimitives = OrderMapper.toEntity(order)
+        return orderPrimitives;
       } catch (error) {
          console.error("Error al actualizar el pedido:", error);
          throw error;
       }
     }
 
-  async findAll(page: number = 1, pageSize: number = 5, userId: number, orderDate?: Date): Promise<Order[]> {
+  async findAll(page: number = 1, pageSize: number = 5, userId: number, orderDate?: Date): Promise<OrderPropierties[]> {
     try {
         const startIndex = (page - 1) * pageSize;
         let query = `SELECT o.*, od.* FROM ${this.tableName} o
@@ -81,43 +85,48 @@ async create(order: Order): Promise<Order> {
 
         const result = await this.databaseService.query(query, queryParams) as any[][];
         // Se crea un array vacio
-        const orderArray: Order[] = [];
-
+        const orderArray = [];
+       
        // Se recorre el resultado
         result[0].forEach((order) => {
+        
           // Se comprueba que en el array de orders, no exista el order con el mismo id
-        const existingOrderIndex = orderArray.findIndex(item => item.orderId === order.OrderID);
+        const existingOrderIndex = orderArray.findIndex(item => item.OrderID === order.OrderID);
         if (existingOrderIndex === -1) {
           // Si no existe el order, se crea un objeto order y se pushea a orderArray
-        const orderEntity = Order.create({
-          orderId: order.OrderID, 
-          userId: order.UserID,
-          orderDate: order.OrderDate,
-          totalAmount: order.TotalAmount,
-          orderDetails: [],
-        })
-
+        const orderEntity = {
+          OrderID: order.OrderID, 
+          UserID: order.UserID,
+          OrderDate: order.OrderDate,
+          TotalAmount: order.TotalAmount,
+          OrderDetails: [],
+        }
+      
 
         orderArray.push(orderEntity)
       }
       // En base de datos, al venir todo unido (order padre con el detalle), se saca un objeto con todos los order details y su orderId
-      const orderDetailEntity = OrderDetail.create({
-        orderId: order.OrderID,
-        orderDetailId: order.OrderDetailID,
-        productId: order.ProductID, 
-        quantity: order.Quantity,
-        price: order.Price,
-      })
+      const orderDetailEntity = {
+        OrderID: order.OrderID,
+        OrderDetailID: order.OrderDetailID,
+        ProductID: order.ProductID, 
+        Quantity: order.Quantity,
+        Price: order.Price,
+      }
+      
 
         // Se recorre el array padre de las orders, y se comprueba si tiene el mismo orderId, si lo tiene se pushean al array de order detail las propiedades del pedido
         orderArray.forEach((e) => {
-        if(e?.orderId === orderDetailEntity.orderId) {
-          e.orderDetails.push(orderDetailEntity)
+        if(e?.OrderID === orderDetailEntity.OrderID) {
+            const orderDetailMapped = OrderDetailMapper.mapToDomain(orderDetailEntity);
+            const orderDetailPrimitives = OrderDetailMapper.toEntity(orderDetailMapped)
+          e.OrderDetails.push(orderDetailPrimitives)
          }
         })
         })
-        
-       return orderArray;
+       const orders= orderArray.map((row:any)=>OrderMapper.mapToDomain(row)) 
+        const ordersPrimitives = orders.map((order) => OrderMapper.toEntity(order))
+       return ordersPrimitives;
   
     } catch (error) {
         console.error("Error al obtener los pedidos:", error);

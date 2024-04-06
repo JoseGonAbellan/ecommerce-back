@@ -1,4 +1,4 @@
-import { NumberValueObject } from "../../../products/domain/value-objects/number.value-object";
+import { NumberValueObject } from "../../../../common/domain/value-objects/number.value-object";
 
 
 export type OrderDetailsPropierties = {
@@ -11,28 +11,28 @@ export type OrderDetailsPropierties = {
 
 export class OrderDetail{
     constructor(
-    public orderDetailId: number,
-    public orderId: number,
-    public productId: number,
-    public quantity: number,
-    public price: number
+    public orderDetailId: NumberValueObject,
+    public orderId: NumberValueObject,
+    public productId: NumberValueObject,
+    public quantity: NumberValueObject,
+    public price: NumberValueObject
     ){}
     getValue(): OrderDetailsPropierties{
         return{
-            orderDetailId: this.orderDetailId,
-            orderId: this.orderId,
-            productId: this.productId,
-            quantity: this.quantity,
-            price: this.price
+            orderDetailId: this.orderDetailId.getValue(),
+            orderId: this.orderId.getValue(),
+            productId: this.productId.getValue(),
+            quantity: this.quantity.getValue(),
+            price: this.price.getValue()
         }
     }
     static create(props: OrderDetailsPropierties): OrderDetail{
         return new OrderDetail(
-            props.orderDetailId,
-            props.orderId,
-            props.productId,
-            props.quantity,
-            props.price,
+            NumberValueObject.createOptional("order detail id",props.orderDetailId),
+            NumberValueObject.create("order id", props.orderId),
+            NumberValueObject.create("product id", props.productId),
+            NumberValueObject.create("quantity", props.quantity),
+            NumberValueObject.create("price",  props.price),
         )
     }
 }

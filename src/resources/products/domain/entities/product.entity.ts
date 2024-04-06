@@ -1,5 +1,6 @@
 import { EnumValueObject } from "../../../../common/domain/value-objects/enum.value-object";
-import { NumberValueObject } from "../value-objects/number.value-object";
+import { NumberValueObject } from "../../../../common/domain/value-objects/number.value-object";
+import { PriceValueObject } from "../../../../common/domain/value-objects/price.value-object";
 import { StringValueObject } from "../value-objects/string.value-object";
 import { UrlValueObject } from "../value-objects/url.value-object";
 
@@ -24,7 +25,7 @@ export class Product{
     public productID: number,
     public productName: StringValueObject,
     public productDescription: StringValueObject,
-    public price: number,
+    public price: PriceValueObject,
     public stock: NumberValueObject,
     public productImageURL: UrlValueObject,
     public productType: EnumValueObject<ProductType>
@@ -34,7 +35,7 @@ export class Product{
             productID: this.productID,
             productName: this.productName.getValue(),
             productDescription: this.productDescription.getValue(),
-            price: this.price,
+            price: this.price.getValue(),
             stock: this.stock.getValue(),
             productImageURL: this.productImageURL.getValue(),
             productType: this.productType.getValue()
@@ -45,7 +46,7 @@ export class Product{
             props.productID,
             StringValueObject.create("Nombre del producto",props.productName),
             StringValueObject.create("Descripción", props.productDescription),
-            props.price,
+            PriceValueObject.create("Precio del producto",   props.price),
             NumberValueObject.create("stock", props.stock),
             UrlValueObject.create(props.productImageURL),
             EnumValueObject.create("Tipo de producto", props.productType, ProductType)

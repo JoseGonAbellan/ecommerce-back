@@ -25,7 +25,7 @@ import { UpdateProductController } from './controlers/update-product.controller'
       UpdateProductUseCase,
       {provide: ProductRepositoryToken, useClass: SqlProductRepository},
       ProductMapper,
-      DatabaseModule
+      DatabaseModule,
   ],
   exports: [FindByIdProductUseCase]
 })
