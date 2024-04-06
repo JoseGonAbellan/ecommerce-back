@@ -6,15 +6,17 @@ export class OrderMapper{
             row.OrderId,
             row.UserId,
             row.OrderDate,
-            row.TotalAmount
+            row.TotalAmount,
+            row.OrderDetails
         )
     }
     static toEntity(order: Order): OrderPropierties{
         return { 
             orderId: order.orderId,
-            userId: order.userId.getValue(),
+            userId: order.userId,
             orderDate: order.orderDate,
-            totalAmount: order.totalAmount
+            totalAmount: order.totalAmount,
+            orderDetails: order.orderDetails
         }
     }
 }

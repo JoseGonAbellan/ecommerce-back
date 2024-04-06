@@ -54,11 +54,12 @@ export class SqlProductRepository implements ProductRepository{
          }
          query += ` LIMIT ?, ?`
          const result = await this.databaseService.query(query, [startIndex,pageSize]) as any[][];
-         const products: Product[] = result[0].map((row:any)=>ProductMapper.mapToDomain(row))
+         const products: Product[] = result[0].map((row:any)=>ProductMapper.mapToDomain(row));
          return products;
       } catch (error) {
          console.error("Error al obtener los productos:", error);
          throw error;
+
 }
     }
 

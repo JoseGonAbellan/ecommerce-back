@@ -5,8 +5,6 @@ import { OrderDetail } from "../../domain/entities/order-detail.entity";
 import { Order } from "../../domain/entities/order.entity";
 import { CreateOrderDetailUseCase } from "../uses-cases/create-order-detail.use-case";
 import { CreateOrderUseCase } from "../uses-cases/create-order.use-case";
-import { Product } from "../../../products/domain/entities/product.entity";
-import { ProductMapper } from "../../../products/infrastructure/persistence/sql/product.mapper";
 
 export type ProductsOrder = {
     id: number;
@@ -38,7 +36,7 @@ export class CreateOrderWorkflow{
             await this.useCaseCreateOrderDetail.execute(orderDetailEntity);
         };
         const totalPrice = productPrices.reduce((acc,curr)=>acc + curr, 0);
-        const updateOrderEntity = Order.create({userId: order.userId.getValue(), orderDate: order.orderDate, totalAmount: totalPrice});
+        const updateOrderEntity = Order.create({userId: order.userId, orderDate: order.orderDate, totalAmount: totalPrice});
         return await this.orderRepository.updateOrder(order.orderId, updateOrderEntity);
     }
 }

@@ -12,27 +12,27 @@ export type OrderDetailsPropierties = {
 export class OrderDetail{
     constructor(
     public orderDetailId: number,
-    public orderId: NumberValueObject,
-    public productId: NumberValueObject,
-    public quantity: NumberValueObject,
-    public price: NumberValueObject
+    public orderId: number,
+    public productId: number,
+    public quantity: number,
+    public price: number
     ){}
     getValue(): OrderDetailsPropierties{
         return{
             orderDetailId: this.orderDetailId,
-            orderId: this.orderId.getValue(),
-            productId: this.productId.getValue(),
-            quantity: this.quantity.getValue(),
-            price: this.price.getValue()
+            orderId: this.orderId,
+            productId: this.productId,
+            quantity: this.quantity,
+            price: this.price
         }
     }
     static create(props: OrderDetailsPropierties): OrderDetail{
         return new OrderDetail(
             props.orderDetailId,
-            NumberValueObject.create("La ID del pedido",props.orderId),
-            NumberValueObject.create("La ID del producto",props.productId),
-            NumberValueObject.create("La cantidad del producto",props.quantity),
-            NumberValueObject.create("El precio del producto",props.price),
+            props.orderId,
+            props.productId,
+            props.quantity,
+            props.price,
         )
     }
 }

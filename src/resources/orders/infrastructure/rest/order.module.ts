@@ -11,14 +11,17 @@ import { CreateOrderDetailUseCase } from '../../application/uses-cases/create-or
 import { CreateOrderWorkflow } from '../../application/workflows/create-order.workflow';
 import { ProductModule } from '../../../products/infrastructure/rest/product.module';
 import { CreateOrderController } from './controllers/create-order.controller';
+import { FindAllOrdersByUserController } from './controllers/find-all-orders-by-user.controller';
+import { FindAllOrdersUseCase } from '../../application/uses-cases/find-all-orders.use-case';
 
 @Module({
     imports:[DatabaseModule, ProductModule],
-    controllers: [CreateOrderController],
+    controllers: [CreateOrderController, FindAllOrdersByUserController],
     providers: [
       CreateOrderUseCase,
       CreateOrderDetailUseCase,
       CreateOrderWorkflow,
+      FindAllOrdersUseCase,
       {provide: OrderRepositoryToken, useClass: SqlOrderRepository},
       {provide: OrderDetailRepositoryToken, useClass: SqlOrderDetailRepository},
       OrderMapper,

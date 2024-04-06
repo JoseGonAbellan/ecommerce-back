@@ -13,10 +13,10 @@ export class OrderDetailMapper{
     static toEntity(orderDetail: OrderDetail): OrderDetailsPropierties{
         return { 
             orderDetailId: orderDetail.orderDetailId,
-            orderId: orderDetail.orderId.getValue(),
-            productId: orderDetail.productId.getValue(),
-            quantity: orderDetail.quantity.getValue(),
-            price: orderDetail.price.getValue()
+            orderId: orderDetail.orderId,
+            productId: orderDetail.productId,
+            quantity: orderDetail.quantity,
+            price: orderDetail.price
         }
     }
 }

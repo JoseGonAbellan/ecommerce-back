@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { DatabaseService } from "../../../../../common/infrastructure/persistance/sql/connector.database";
 import { OrderDetailRepository } from "../../../domain/contracts/order-detail.repository";
 import { OrderDetail } from "../../../domain/entities/order-detail.entity";
@@ -24,4 +24,5 @@ export class SqlOrderDetailRepository implements OrderDetailRepository{
         throw error;
      }   
     }  
+   
 }
