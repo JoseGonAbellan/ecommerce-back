@@ -5,7 +5,7 @@ import { User, UserPropierties } from "../../domain/entities/user.entity";
 export class CreateUserUseCase{
     constructor(@Inject(UserRepositoryToken)
     private readonly userRepository: UserRepository){}
-    async execute(input: UserPropierties): Promise<User>{
+    async execute(input: UserPropierties): Promise<UserPropierties>{
         const userEntity = User.create(input);
         return await this.userRepository.create(userEntity);
     }

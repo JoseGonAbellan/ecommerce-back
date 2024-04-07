@@ -2,16 +2,16 @@ import { User, UserPropierties } from "../../../domain/entities/user.entity";
 
 export class UserMapper{
     static mapToDomain(row: any): User{
-        return new User(
-            row.UserID,
-            row.UserName,
-            row.LastName,
-            row.Email,
-            row.UserPassword,
-            row.Address,
-            row.Phone,
-            row.Rol
-        )
+        return User.create({
+            userID: row.UserID,
+            userName: row.UserName,
+            userLastName: row.LastName,
+            userEmail: row.Email,
+            userPassword: row.UserPassword,
+            userAddress: row.Address,
+            userPhone: row.Phone,
+            rol: row.Rol
+        })
     }
     static toEntity(user: User): UserPropierties{ 
         return { 

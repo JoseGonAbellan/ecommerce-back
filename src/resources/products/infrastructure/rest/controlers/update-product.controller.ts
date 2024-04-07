@@ -7,7 +7,7 @@ import { UpdateProductUseCase } from "../../../application/uses-cases/update-pro
 export class UpdateProductController{
     constructor(private readonly updateProductUseCase: UpdateProductUseCase){}
     @Put(":id")
-    async update(@Param("id") id: number, @Body() product: ProductPropierties): Promise<Product>{
+    async update(@Param("id") id: number, @Body() product: ProductPropierties): Promise<ProductPropierties>{
         return await this.updateProductUseCase.execute(id, product)
     }
 }

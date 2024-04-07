@@ -1,11 +1,9 @@
-import { User } from "../entities/user.entity";
-import { FilterUsers } from "../types/filter.interface";
+import { User, UserPropierties } from "../entities/user.entity";
 
 export interface UserRepository{
-    create(product: User) : Promise<User>
+    create(product: User) : Promise<UserPropierties>
     delete(id: number) : Promise<void>
-    // findAll(page: number, pageSize: number, filter?: FilterUsers) : Promise<User[]>
-    findById(id: number) : Promise<User>
-    updateUser(id: number, product: User) : Promise<User>
+    findById(id: number) : Promise<UserPropierties>
+    updateUser(id: number, product: User) : Promise<UserPropierties>
 }
 export const UserRepositoryToken = Symbol("UserRepository");

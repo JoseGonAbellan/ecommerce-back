@@ -6,7 +6,7 @@ import { Product, ProductPropierties } from "../../../domain/entities/product.en
 export class CreateProductController{
     constructor(private readonly createProductUseCase: CreateProductUseCase){}
     @Post()
-    async create(@Body() propierties: ProductPropierties): Promise<Product>{
+    async create(@Body() propierties: ProductPropierties): Promise<ProductPropierties>{
         return await this.createProductUseCase.execute(propierties)
     }
 }

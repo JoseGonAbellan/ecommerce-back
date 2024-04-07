@@ -2,15 +2,16 @@ import { Product, ProductPropierties } from "../../../domain/entities/product.en
 
 export class ProductMapper{
     static mapToDomain(row: any): Product{
-        return new Product(
-            row.ProductID,
-            row.ProductName,
-            row.ProductDescription,
-            row.Price,
-            row.Stock,
-            row.ProductImageURL,
-            row.ProductType
-        )
+        const product = Product.create({
+            productID: row.ProductID,
+            productName: row.ProductName,
+            productDescription: row.ProductDescription,
+            price: row.Price,
+            stock: row.Stock,
+            productImageURL: row.ProductImageURL,
+            productType: row.ProductType
+        })
+        return product
     }
     static toEntity(product: Product): ProductPropierties{
         return { 

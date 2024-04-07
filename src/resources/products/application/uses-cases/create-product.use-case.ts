@@ -5,7 +5,7 @@ import { Product, ProductPropierties } from "../../domain/entities/product.entit
 export class CreateProductUseCase{
     constructor(@Inject(ProductRepositoryToken)
     private readonly productRepository: ProductRepository){}
-    async execute(input: ProductPropierties): Promise<Product>{
+    async execute(input: ProductPropierties): Promise<ProductPropierties>{
         const productEntity = Product.create(input);
         return await this.productRepository.create(productEntity);
     }

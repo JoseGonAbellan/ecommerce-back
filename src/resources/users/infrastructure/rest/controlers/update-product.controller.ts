@@ -6,7 +6,7 @@ import { UpdateUserUseCase } from "../../../application/uses-cases/update-user.u
 export class UpdateUserController{
     constructor(private readonly updateUserUseCase: UpdateUserUseCase){}
     @Put(":id")
-    async update(@Param("id") id: number, @Body() user: UserPropierties): Promise<User>{
+    async update(@Param("id") id: number, @Body() user: UserPropierties): Promise<UserPropierties>{
         return await this.updateUserUseCase.execute(id, user)
     }
 }

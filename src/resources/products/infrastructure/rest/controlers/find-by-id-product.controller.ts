@@ -7,7 +7,7 @@ import { FindByIdProductUseCase } from "../../../application/uses-cases/find-byi
 export class FindByIdProductController{
     constructor(private readonly findByIdProductUseCase: FindByIdProductUseCase){}
     @Get(":id")
-    async findById(@Param("id") id: number): Promise<Product>{
+    async findById(@Param("id") id: number): Promise<ProductPropierties>{
         return await this.findByIdProductUseCase.execute(id)
     }
 }

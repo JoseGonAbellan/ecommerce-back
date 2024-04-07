@@ -5,7 +5,7 @@ import { Product, ProductPropierties } from "../../domain/entities/product.entit
 export class UpdateProductUseCase{
     constructor(@Inject(ProductRepositoryToken)
     private readonly productRepository: ProductRepository){}
-    async execute(id: number, product: ProductPropierties): Promise<Product>{
+    async execute(id: number, product: ProductPropierties): Promise<ProductPropierties>{
         const existingProduct = await this.productRepository.findById(id);
         if (!existingProduct){
             throw new NotFoundException(`El producto con id ${id} no existe`)

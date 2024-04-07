@@ -7,7 +7,7 @@ export class FindAllProductsUseCase{
     constructor(
     @Inject(ProductRepositoryToken)
     private readonly productRepository: ProductRepository){}
-    async execute(page: number, pageSize: number, filter?: FilterProducts): Promise<Product[]>{
+    async execute(page: number, pageSize: number, filter?: FilterProducts): Promise<ProductPropierties[]>{
         return await this.productRepository.findAll(page, pageSize, filter);
     }
 }

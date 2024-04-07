@@ -6,7 +6,7 @@ import { User, UserPropierties } from "../../../domain/entities/user.entity";
 export class CreateUserController{
     constructor(private readonly createUserUseCase: CreateUserUseCase){}
     @Post()
-    async create(@Body() propierties: UserPropierties): Promise<User>{
+    async create(@Body() propierties: UserPropierties): Promise<UserPropierties>{
         return await this.createUserUseCase.execute(propierties)
     }
 }
