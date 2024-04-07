@@ -5,6 +5,7 @@ import { OrderRepository } from "../../../domain/contracts/order.repository";
 import { Order, OrderPropierties } from "../../../domain/entities/order.entity";
 import { OrderDetailMapper } from "./order-detail.mapper";
 import { OrderMapper } from "./order.mapper";
+import { OrderDetailsPropierties } from "../../../domain/entities/order-detail.entity";
 
 @Injectable()
 export class SqlOrderRepository implements OrderRepository{
@@ -32,9 +33,34 @@ async create(order: Order): Promise<OrderPropierties> {
 
     async findById(id: number): Promise<OrderPropierties> {
       try {
-         const query= `SELECT * FROM ${this.tableName} WHERE orderID = ?`;
+         const query = `SELECT o.*, od.* FROM ${this.tableName} o
+                     LEFT JOIN orderdetails od ON o.orderID = od.orderID
+                     WHERE o.orderID = ?`;
          const result = await this.databaseService.query(query, [id]) as any[][];
-         const order = OrderMapper.mapToDomain(result[0][0])
+          const orderDetailsArray: OrderDetailsPropierties[] = [];
+        const orderDb = { 
+            OrderID: result[0][0].OrderID,
+            UserID: result[0][0].UserID,
+            OrderDate: result[0][0].OrderDate,
+            TotalAmount: result[0][0].TotalAmount,
+            OrderDetails: orderDetailsArray
+          }
+        
+         result[0].map((e)=>{
+          if (orderDb.OrderID === e.OrderID){
+            const orderDetailDb = {
+              OrderID: e.OrderID,
+              OrderDetailID: e.OrderDetailID,
+              ProductID: e.ProductID, 
+              Quantity: e.Quantity,
+              Price: e.Price,
+            }
+            const orderToDomain = OrderDetailMapper.mapToDomain(orderDetailDb)
+            const orderPrimitives = OrderDetailMapper.toEntity(orderToDomain)
+            orderDetailsArray.push(orderPrimitives)
+          }
+         })
+         const order = OrderMapper.mapToDomain(orderDb);
          const orderPrimitives = OrderMapper.toEntity(order);
          return orderPrimitives;
       } catch (error) {

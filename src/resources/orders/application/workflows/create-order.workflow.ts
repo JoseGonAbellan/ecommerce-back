@@ -6,9 +6,6 @@ import { Order, OrderPropierties } from "../../domain/entities/order.entity";
 import { CreateOrderDetailUseCase } from "../uses-cases/create-order-detail.use-case";
 import { CreateOrderUseCase } from "../uses-cases/create-order.use-case";
 import { UpdateOrderUseCase } from "../uses-cases/update-order.use-case";
-import { Product, ProductPropierties } from "../../../products/domain/entities/product.entity";
-import { PriceValueObject } from "../../../../common/domain/value-objects/price.value-object";
-import { ProductMapper } from "../../../products/infrastructure/persistence/sql/product.mapper";
 
 export type ProductsOrder = {
     id: number;
@@ -36,7 +33,7 @@ export class CreateOrderWorkflow{
          const productPrices: number[] = []
          for (const product of input.productsOrders) {
              const findProduct = await this.useCaseFindByIdProduct.execute(product.id);
-             const productPrice = findProduct.price as unknown as number * product.quantity;
+             const productPrice = findProduct.price * product.quantity;
              productPrices.push(productPrice);
          
              const orderDetailEntity = OrderDetail.create({orderId: order.orderId, productId: product.id, quantity: product.quantity, price: productPrice});

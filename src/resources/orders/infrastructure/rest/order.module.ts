@@ -14,15 +14,18 @@ import { CreateOrderController } from './controllers/create-order.controller';
 import { FindAllOrdersByUserController } from './controllers/find-all-orders-by-user.controller';
 import { FindAllOrdersUseCase } from '../../application/uses-cases/find-all-orders.use-case';
 import { UpdateOrderUseCase } from '../../application/uses-cases/update-order.use-case';
+import { FindByIdOrderController } from './controllers/find-by-id-order.controller';
+import { FindByIdOrderUseCase } from '../../application/uses-cases/find-by-id-order.use-case';
 
 @Module({
     imports:[DatabaseModule, ProductModule],
-    controllers: [CreateOrderController, FindAllOrdersByUserController],
+    controllers: [CreateOrderController, FindAllOrdersByUserController, FindByIdOrderController],
     providers: [
       CreateOrderUseCase,
       CreateOrderDetailUseCase,
       CreateOrderWorkflow,
       FindAllOrdersUseCase,
+      FindByIdOrderUseCase,
       {provide: OrderRepositoryToken, useClass: SqlOrderRepository},
       {provide: OrderDetailRepositoryToken, useClass: SqlOrderDetailRepository},
       OrderMapper,
