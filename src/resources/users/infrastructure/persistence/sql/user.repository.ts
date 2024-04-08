@@ -79,4 +79,17 @@ export class SqlUserRepository implements UserRepository{
          throw error;
       }
     }
+
+     async findByEmail(email: string): Promise<UserPropierties> {
+      try {
+         const query= `SELECT * FROM ${this.tableName} WHERE email = ?`;
+         const result = await this.databaseService.query(query, [email]) as any[][];
+         const user = UserMapper.mapToDomain(result[0][0]);
+         const userPrimitives = UserMapper.toEntity(user);
+         return userPrimitives;
+      } catch (error) {
+         console.error("Error al obtener el usuario:", error);
+         throw new NotFoundException(`No se ha encontrado el usuario con el email ${email}`);
+      }
+    }
 }

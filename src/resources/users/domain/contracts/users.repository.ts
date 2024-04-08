@@ -5,5 +5,6 @@ export interface UserRepository{
     delete(id: number) : Promise<void>
     findById(id: number) : Promise<UserPropierties>
     updateUser(id: number, product: User) : Promise<UserPropierties>
+    findByEmail(email: string) : Promise<UserPropierties>
 }
 export const UserRepositoryToken = Symbol("UserRepository");
