@@ -9,7 +9,7 @@ import { DeleteUserController } from './controlers/delete-user.controller';
 import { DeleteUserUseCase } from '../../application/uses-cases/delete-user.use-case';
 import { FindByIdUserController } from './controlers/find-by-id-user.controller';
 import { FindByIdUserUseCase } from '../../application/uses-cases/find-byid-user.use-case';
-import { UpdateUserController } from './controlers/update-product.controller';
+import { UpdateUserController } from './controlers/update-user.controller';
 import { UpdateUserUseCase } from '../../application/uses-cases/update-user.use-case';
 
 @Module({
