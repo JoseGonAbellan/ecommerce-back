@@ -9,7 +9,6 @@ import { RolEnum } from "../../../../users/domain/entities/user.entity";
 export class FindByIdProductController{
     constructor(private readonly findByIdProductUseCase: FindByIdProductUseCase){}
     @Get(":id")
-    @UseGuards(new RolesGuard([RolEnum.ADMIN, RolEnum.USER]))
     async findById(@Param("id") id: number): Promise<ProductPropierties>{
         return await this.findByIdProductUseCase.execute(id)
     }
