@@ -22,6 +22,6 @@ export class NumberValueObject{
         if (!value){
             throw new BadRequestException(`La propiedad ${propierty} es obligatoria`)
         }
-        if (!isNumber(value)){throw new BadRequestException(`La propiedad ${propierty} debe ser un número`)}
+        // if (!isNumber(value)){throw new BadRequestException(`La propiedad ${propierty} debe ser un número`)}
     }
 }
