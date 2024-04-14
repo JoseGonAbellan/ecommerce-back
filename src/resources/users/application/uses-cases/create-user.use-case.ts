@@ -1,8 +1,7 @@
 import { Inject } from "@nestjs/common";
+import * as bcrypt from 'bcrypt';
 import { UserRepository, UserRepositoryToken } from "../../domain/contracts/users.repository";
 import { User, UserPropierties } from "../../domain/entities/user.entity";
-import * as bcrypt from 'bcrypt';
-
 export class CreateUserUseCase{
     constructor(@Inject(UserRepositoryToken)
     private readonly userRepository: UserRepository){}

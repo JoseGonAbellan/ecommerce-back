@@ -10,7 +10,7 @@ export class UserMapper{
             userPassword: row.UserPassword,
             userAddress: row.Address,
             userPhone: row.Phone,
-            rol: row.Rol
+            rol: row.Rol,
         })
     }
     static toEntity(user: User): UserPropierties{ 
@@ -22,7 +22,7 @@ export class UserMapper{
             userPassword: user.userPassword.getValue(),
             userAddress: user.userAddress.getValue(),
             userPhone: user.userPhone.getValue(),
-            rol: user.rol.getValue()
+            rol: user.rol.getValue(),
         }
     }
 }
