@@ -7,7 +7,10 @@ export class OrderMapper{
             userId: row.UserID,
             orderDate: row.OrderDate,
             totalAmount: row.TotalAmount ? parseInt(row.TotalAmount) : 1,
-            orderDetails: row.OrderDetails
+            orderDetails: row.OrderDetails,
+            orderStatus: row.OrderStatus,
+            paymentMethod: row.PaymentMethod,
+            shippingOptions: row.ShippingOptions
         })
          return order
     }
@@ -18,7 +21,10 @@ export class OrderMapper{
             userId: order.userId.getValue(),
             orderDate: order.orderDate,
             totalAmount: order.totalAmount?.getValue(),
-            orderDetails: order.orderDetails.map((order) => order.getValue())
+            orderDetails: order.orderDetails.map((order) => order.getValue()),
+            orderStatus: order.orderStatus.getValue(),
+            paymentMethod: order.paymentMethod.getValue(),
+            shippingOptions: order.shippingOptions.getValue()
         }
     }
 }
