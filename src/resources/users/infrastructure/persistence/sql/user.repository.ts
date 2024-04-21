@@ -3,6 +3,7 @@ import { DatabaseService } from "../../../../../common/infrastructure/persistanc
 import { UserRepository } from "../../../domain/contracts/users.repository";
 import { User, UserPropierties } from "../../../domain/entities/user.entity";
 import { UserMapper } from "./user.mapper";
+import { UserUpdatePassDTO } from "../../rest/dtos/update-user.dto";
 
 @Injectable()
 export class SqlUserRepository implements UserRepository{
@@ -57,7 +58,6 @@ export class SqlUserRepository implements UserRepository{
                        SET userName = ?, 
                            lastName = ?, 
                            email = ?, 
-                           userPassword = ?, 
                            address = ?, 
                            phone = ?,
                            rol = ? 
@@ -67,7 +67,6 @@ export class SqlUserRepository implements UserRepository{
             entity.userName,
             entity.userLastName,
             entity.userEmail,
-            entity.userPassword,
             entity.userAddress,
             entity.userPhone,
             entity.rol,
@@ -91,5 +90,16 @@ export class SqlUserRepository implements UserRepository{
          console.error("Error al obtener el usuario:", error);
          throw new NotFoundException(`No se ha encontrado el usuario con el email ${email}`);
       }
+    }
+    async updatePassword(id: number, user: UserUpdatePassDTO): Promise<UserUpdatePassDTO> {
+      const query = `UPDATE ${this.tableName} 
+                       SET userPassword = ?
+                       WHERE userID = ?`;
+
+        await this.databaseService.query(query, [
+            user.userPassword,
+            id
+        ]);
+        return user;
     }
 }

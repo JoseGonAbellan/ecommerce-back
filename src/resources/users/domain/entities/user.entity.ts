@@ -1,6 +1,6 @@
 import { EnumValueObject } from "../../../../common/domain/value-objects/enum.value-object";
 import { NumberValueObject } from "../../../../common/domain/value-objects/number.value-object";
-import { StringValueObject } from "../../../products/domain/value-objects/string.value-object";
+import { StringValueObject } from "../../../../common/domain/value-objects/string.value-object";
 
 
 export enum RolEnum{
@@ -13,7 +13,7 @@ export type UserPropierties = {
     userName: string;
     userLastName: string;
     userEmail: string;
-    userPassword: string;
+    userPassword?: string;
     userAddress: string;
     userPhone: number;
     rol: RolEnum;
@@ -48,7 +48,7 @@ export class User{
             StringValueObject.create("Nombre",props.userName),
             StringValueObject.create("Apellido", props.userLastName),
             StringValueObject.create("Email", props.userEmail),
-            StringValueObject.create("Contraseña", props.userPassword),
+            StringValueObject.createOptional("Contraseña", props.userPassword),
             StringValueObject.create("Dirección", props.userAddress),
             NumberValueObject.create("Teléfono",props.userPhone),
             EnumValueObject.create("Rol del usuario", props.rol, RolEnum)

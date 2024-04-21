@@ -19,7 +19,7 @@ export class UserMapper{
             userName: user.userName.getValue(),
             userLastName: user.userLastName.getValue(),
             userEmail: user.userEmail.getValue(),
-            userPassword: user.userPassword.getValue(),
+            userPassword: user.userPassword?.getValue(),
             userAddress: user.userAddress.getValue(),
             userPhone: user.userPhone.getValue(),
             rol: user.rol.getValue(),
