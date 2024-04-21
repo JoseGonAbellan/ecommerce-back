@@ -5,6 +5,6 @@ import { DatabaseService } from './connector.database';
 
 @Module({
   providers: [DatabaseService],
-  exports: [DatabaseService], // Exporta el servicio para que pueda ser utilizado en otros módulos
+  exports: [DatabaseService],
 })
 export class DatabaseModule {}

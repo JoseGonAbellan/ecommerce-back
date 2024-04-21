@@ -1,15 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Connection, createConnection } from 'mysql2/promise';
 
-export const databaseConfig = {
-  host: 'localhost',
-  user: 'root',
-  password: 'MerryPippin96',
-  database: 'ecommerce',
-};
+
 
 @Injectable()
 export class DatabaseService {
+  private dataBasePassword = process.env.DB_PASSWORD
   connection: Connection;
 
   constructor() {
@@ -17,7 +13,12 @@ export class DatabaseService {
   }
 
   async connect() {
-    this.connection = await createConnection(databaseConfig);
+    this.connection = await createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: this.dataBasePassword,
+    database: 'ecommerce',
+});
     console.log('Connected to MySQL database');
   }
 

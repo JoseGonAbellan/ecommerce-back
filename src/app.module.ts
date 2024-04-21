@@ -7,9 +7,11 @@ import { ProductModule } from './resources/products/infrastructure/rest/product.
 import { UserModule } from './resources/users/infrastructure/rest/user.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({
-  envFilePath: '.env',
-}), ProductModule, UserModule, OrderModule],
+  imports: [
+  ConfigModule.forRoot({
+  envFilePath: '.env', isGlobal: true,
+  }),
+ ProductModule, UserModule, OrderModule],
   controllers: [AppController],
   providers: [AppService],
 })
