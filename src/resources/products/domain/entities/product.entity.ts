@@ -1,7 +1,7 @@
 import { EnumValueObject } from "../../../../common/domain/value-objects/enum.value-object";
 import { NumberValueObject } from "../../../../common/domain/value-objects/number.value-object";
 import { PriceValueObject } from "../../../../common/domain/value-objects/price.value-object";
-import { StringValueObject } from "../value-objects/string.value-object";
+import { StringValueObject } from "../../../../common/domain/value-objects/string.value-object";
 import { UrlValueObject } from "../value-objects/url.value-object";
 
 export enum ProductType{

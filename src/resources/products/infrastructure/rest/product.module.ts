@@ -27,6 +27,6 @@ import { UpdateProductController } from './controlers/update-product.controller'
       ProductMapper,
       DatabaseModule,
   ],
-  exports: [FindByIdProductUseCase]
+  exports: [FindByIdProductUseCase, UpdateProductUseCase]
 })
 export class ProductModule {}
