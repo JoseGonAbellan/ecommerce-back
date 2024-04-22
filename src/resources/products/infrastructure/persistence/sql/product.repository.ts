@@ -56,6 +56,7 @@ export class SqlProductRepository implements ProductRepository{
             const whereClause = filterConditions.join(' AND ');
             query +=  ` WHERE ${whereClause}`;
          }
+         query += ` ORDER BY ProductID DESC`;
          query += ` LIMIT ?, ?`
          const result = await this.databaseService.query(query, [startIndex,pageSize]) as any[][];
          const products: Product[] = result[0].map((row:any)=>ProductMapper.mapToDomain(row));
